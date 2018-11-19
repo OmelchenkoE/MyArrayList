@@ -1,11 +1,13 @@
 package main;
 
 public class SimpleListImpl implements SimpleList {
-    private Object[] arr = new Object[0];
+    private final int MIN_ARRAY_SIZE = 16;
+    private Object[] arr = new Object[MIN_ARRAY_SIZE];
+    private int pointer = 0;
 
     @Override
     public Object get(int index) {
-        if (index < arr.length) {
+        if (index < arr.length && index >= 0) {
             return arr[index];
         } else {
             throw new IndexOutOfBoundsException();
@@ -14,99 +16,104 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public Object set(int index, Object element) {
-        if (index >= arr.length) {
+        if (index >= arr.length && index < 0) {
             throw new IndexOutOfBoundsException();
         } else {
+            Object previousEl = arr[index];
             arr[index] = element;
-            return arr[index];
+            return previousEl;
         }
     }
 
     @Override
     public void add(int index, Object element) {
-        if (index >arr.length) {
+        if (index > arr.length && index < 0) {
             throw new IndexOutOfBoundsException();
         } else {
-            Object[] temp = arr;
-            arr = new Object[temp.length + 1];
-            System.arraycopy(temp, 0, arr, 0, index);
-            arr[index] = element;
-            System.arraycopy(temp, index, arr, index + 1, temp.length-index);
+            if (pointer == arr.length - 1) {
+                Object[] temp = arr;
+                arr = new Object[temp.length + MIN_ARRAY_SIZE];
+                System.arraycopy(temp, 0, arr, 0, index);
+                arr[index] = element;
+                System.arraycopy(temp, index, arr, index + 1, temp.length - index);
+            } else {
+                arr[index] = element;
+            }
+            pointer++;
         }
     }
 
     @Override
     public Object remove(int index) {
-        if (index < size()) {
+        if (index < size() && index >= 0) {
+            Object previousEl = arr[index];
             Object[] temp = arr;
-            arr = new Object[arr.length - 1];
+            if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
+                arr = new Object[arr.length - MIN_ARRAY_SIZE];
+            }
             System.arraycopy(temp, 0, arr, 0, index);
-            int aftterI = temp.length - index - 1;
-            System.arraycopy(temp, index + 1, arr, index, aftterI);
-            return true;
+            int afterI = temp.length - index - 1;
+            System.arraycopy(temp, index + 1, arr, index, afterI);
+            pointer--;
+            return previousEl;
         } else {
-            throw new UnsupportedOperationException();
+            throw new IndexOutOfBoundsException();
         }
     }
 
     @Override
     public int size() {
-        return arr.length;
+        return pointer;
     }
 
     @Override
     public boolean isEmpty() {
-        if (size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return (pointer == 0);
+
     }
 
     @Override
     public boolean add(Object o) {
-        Object[] temp = arr;
-        arr = new Object[temp.length + 1];
-        System.arraycopy(temp, 0, arr, 0, temp.length);
-        arr[arr.length - 1] = o;
+        if (pointer == arr.length - 1) {
+            Object[] temp = arr;
+            arr = new Object[temp.length + MIN_ARRAY_SIZE];
+            System.arraycopy(temp, 0, arr, 0, temp.length);
+        }
+        arr[pointer] = o;
+        pointer++;
         return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        int j = 0;
         for (int i = 0; i < size(); i++) {
-            if (o == arr[i]) {
+            if (o.equals(arr[i])) {
                 Object[] temp = arr;
-                arr = new Object[arr.length - 1];
+                if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
+                    arr = new Object[arr.length - MIN_ARRAY_SIZE];
+                }
                 System.arraycopy(temp, 0, arr, 0, i);
-                int aftterI = temp.length - i - 1;
-                System.arraycopy(temp, i + 1, arr, i, aftterI);
-                j++;
+                int afterI = temp.length - i - 1;
+                System.arraycopy(temp, i + 1, arr, i, afterI);
+                pointer--;
+                return true;
             }
         }
-        if (j > 0) {
-            return true;
-        } else {
-            throw new UnsupportedOperationException();
-        }
+        return false;
     }
+
 
     @Override
     public void clear() {
-        if (arr.length == 0) {
-            throw new UnsupportedOperationException();
-        } else {
-            arr = new Object[0];
-        }
+        arr = new Object[MIN_ARRAY_SIZE];
+        pointer=0;
     }
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < size(); i++) {
-            if (arr[i] == o) {
+        for (int i = 0; i < pointer; i++) {
+            if (o.equals(arr[i])) {
                 return true;
-            } else {
             }
         }
         return false;
