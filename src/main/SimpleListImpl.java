@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Collection;
+
 public class SimpleListImpl implements SimpleList {
     private final int MIN_ARRAY_SIZE = 16;
     private Object[] arr = new Object[MIN_ARRAY_SIZE];
@@ -79,7 +81,7 @@ public class SimpleListImpl implements SimpleList {
             arr = new Object[temp.length + MIN_ARRAY_SIZE];
             System.arraycopy(temp, 0, arr, 0, temp.length);
         }
-        arr[arr.length - 1] = o;
+        arr[pointer] = o;
         pointer++;
         return true;
     }
@@ -106,16 +108,87 @@ public class SimpleListImpl implements SimpleList {
     @Override
     public void clear() {
         arr = new Object[MIN_ARRAY_SIZE];
-        pointer=0;
+        pointer = 0;
     }
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < pointer; i++) {
             if (o.equals(arr[i])) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return arr;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        int counter = 0;
+        Object[] arrCol = c.toArray();
+        for (int i = 0; i < c.size(); i++) {
+            if (contains(arrCol[i])) {
+                counter++;
+            }
+        }
+        return counter == c.size();
+    }
+
+    @Override
+    public boolean addAll(Collection<?> c) {
+        int counter = 0;
+        for (Object o : c) {
+            if (add(o)) {
+                counter++;
+            }
+        }
+        return counter > 0;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        int counter = 0;
+        for (Object o : c) {
+            if (remove(o)) {
+                counter++;
+            }
+        }
+        return counter > 0;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        int counter = 0;
+        for (Object o : c) {
+            if (!contains(o)) {
+                remove(o);
+                counter++;
+            }
+        }
+        return counter > 0;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        for (int i = 0; i < pointer; i++) {
+            if (o.equals(arr[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        for (int i = size()-1; i >= 0; i--) {
+            if (o.equals(arr[i])) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
