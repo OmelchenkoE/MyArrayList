@@ -18,7 +18,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public Object set(int index, Object element) {
-        if (index >= arr.length && index < 0) {
+        if (index >= pointer && index < 0) {
             throw new IndexOutOfBoundsException();
         } else {
             Object previousEl = arr[index];
@@ -32,13 +32,12 @@ public class SimpleListImpl implements SimpleList {
         if (index > arr.length && index < 0) {
             throw new IndexOutOfBoundsException();
         } else {
+            Object[] temp = arr;
             if (pointer == arr.length - 1) {
-                Object[] temp = arr;
                 arr = new Object[temp.length + MIN_ARRAY_SIZE];
-                System.arraycopy(temp, 0, arr, 0, index);
-                arr[index] = element;
-                System.arraycopy(temp, index, arr, index + 1, temp.length - index);
             } else {
+                System.arraycopy(temp, 0, arr, 0, index);
+                System.arraycopy(temp, index, arr, index + 1, pointer);
                 arr[index] = element;
             }
             pointer++;
@@ -47,7 +46,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public Object remove(int index) {
-        if (index < size() && index >= 0) {
+        if (index <= size() && index >= 0) {
             Object previousEl = arr[index];
             Object[] temp = arr;
             if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
@@ -88,10 +87,10 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean remove(Object o) {
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < pointer; i++) {
             if (o.equals(arr[i])) {
                 Object[] temp = arr;
-                if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
+                if (size() <= (pointer - MIN_ARRAY_SIZE)) {
                     arr = new Object[arr.length - MIN_ARRAY_SIZE];
                 }
                 System.arraycopy(temp, 0, arr, 0, i);
@@ -123,7 +122,9 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public Object[] toArray() {
-        return arr;
+        Object[]rArr = new Object[size()] ;
+        System.arraycopy(arr, 0, rArr, 0, size());
+        return rArr;
     }
 
     @Override
@@ -184,7 +185,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public int lastIndexOf(Object o) {
-        for (int i = size()-1; i >= 0; i--) {
+        for (int i = size(); i >= 0; i--) {
             if (o.equals(arr[i])) {
                 return i;
             }

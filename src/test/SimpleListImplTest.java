@@ -13,10 +13,10 @@ public class SimpleListImplTest {
     Object o = new Object();
 
     @Test
-    public void testGetAndSet() {
+    public void testSet() {
         target.add(o);
-        target.set(0, o);
-        assertEquals(o, target.get(0));
+        target.set(0, 1);
+        assertEquals(1, target.get(0));
     }
 
     @Test
@@ -29,9 +29,7 @@ public class SimpleListImplTest {
 
     @Test
     public void testAddAndGetWithIndex() {
-        for (int i = 0; i < 17; i++) {
-            target.add(i, o);
-        }
+        target.add(0, o);
         assertEquals(o, target.get(0));
     }
 
@@ -76,10 +74,8 @@ public class SimpleListImplTest {
 
     @Test
     public void testToArray() {
-        Object[] testArr = new Object[16];
-        testArr[0] = o;
         target.add(o);
-        assertEquals(testArr, target.toArray());
+        assertEquals(o, target.toArray()[0]);
     }
 
     @Test
