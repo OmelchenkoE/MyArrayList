@@ -14,6 +14,7 @@ public class SimpleListImpl implements SimpleList {
     @Override
     public Object get(int index) {
         // TODO do you need an "else" clause here?
+        // TODO there is an error in this condition - can you see it?
         if (index < arr.length && index >= 0) {
             return arr[index];
         } else {
