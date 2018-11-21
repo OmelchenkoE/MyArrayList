@@ -7,6 +7,7 @@ public class SimpleListImpl implements SimpleList {
     private final int MIN_ARRAY_SIZE = 16;
     private Object[] arr = new Object[MIN_ARRAY_SIZE];
     private int pointer = 0;
+    private boolean b=false;
 
     @Override
     public Object get(int index) {
@@ -91,7 +92,7 @@ public class SimpleListImpl implements SimpleList {
         for (int i = 0; i < pointer; i++) {
             if (o.equals(arr[i])) {
                 Object[] temp = arr;
-                if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
+                if (size() <= (pointer - MIN_ARRAY_SIZE)) {
                     arr = new Object[arr.length - MIN_ARRAY_SIZE];
                 }
                 System.arraycopy(temp, 0, arr, 0, i);
@@ -123,36 +124,39 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOfRange(arr, 0 , size());
+        return Arrays.copyOfRange(arr, 0, size());
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        for (Object o:c) {
-            if (!contains(o)){
-                return false;
+        int counter = 0;
+        Object[] arrCol = c.toArray();
+        for (int i = 0; i < c.size(); i++) {
+            if (contains(arrCol[i])) {
+                counter++;
             }
-        }return true;
+        }
+        return counter == c.size();
     }
 
     @Override
     public boolean addAll(Collection<?> c) {
         for (Object o : c) {
-            if (add(o)) {
-           return true;
-            }
+           if(add(o)){
+               b=true;
+           }
         }
-        return false;
+        return b;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
         for (Object o : c) {
             if (remove(o)) {
-                return true;
+                b=true;
             }
         }
-        return false;
+        return b;
     }
 
     @Override
@@ -160,10 +164,10 @@ public class SimpleListImpl implements SimpleList {
         for (Object o : c) {
             if (!contains(o)) {
                 remove(o);
-                return true;
+                b=true;
             }
         }
-        return false;
+        return b;
     }
 
     @Override
@@ -178,7 +182,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public int lastIndexOf(Object o) {
-        for (int i = size()-1; i >= 0; i--) {
+        for (int i = size(); i >= 0; i--) {
             if (o.equals(arr[i])) {
                 return i;
             }
