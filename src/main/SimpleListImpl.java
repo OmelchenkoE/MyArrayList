@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 public class SimpleListImpl implements SimpleList {
@@ -33,7 +34,7 @@ public class SimpleListImpl implements SimpleList {
             throw new IndexOutOfBoundsException();
         } else {
             Object[] temp = arr;
-            if (pointer == arr.length - 1) {
+            if (pointer == arr.length) {
                 arr = new Object[temp.length + MIN_ARRAY_SIZE];
             } else {
                 System.arraycopy(temp, 0, arr, 0, index);
@@ -75,7 +76,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean add(Object o) {
-        if (pointer == arr.length - 1) {
+        if (pointer == arr.length) {
             Object[] temp = arr;
             arr = new Object[temp.length + MIN_ARRAY_SIZE];
             System.arraycopy(temp, 0, arr, 0, temp.length);
@@ -90,7 +91,7 @@ public class SimpleListImpl implements SimpleList {
         for (int i = 0; i < pointer; i++) {
             if (o.equals(arr[i])) {
                 Object[] temp = arr;
-                if (size() <= (pointer - MIN_ARRAY_SIZE)) {
+                if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
                     arr = new Object[arr.length - MIN_ARRAY_SIZE];
                 }
                 System.arraycopy(temp, 0, arr, 0, i);
@@ -122,55 +123,47 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public Object[] toArray() {
-        Object[]rArr = new Object[size()] ;
-        System.arraycopy(arr, 0, rArr, 0, size());
-        return rArr;
+        return Arrays.copyOfRange(arr, 0 , size());
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        int counter = 0;
-        Object[] arrCol = c.toArray();
-        for (int i = 0; i < c.size(); i++) {
-            if (contains(arrCol[i])) {
-                counter++;
+        for (Object o:c) {
+            if (!contains(o)){
+                return false;
             }
-        }
-        return counter == c.size();
+        }return true;
     }
 
     @Override
     public boolean addAll(Collection<?> c) {
-        int counter = 0;
         for (Object o : c) {
             if (add(o)) {
-                counter++;
+           return true;
             }
         }
-        return counter > 0;
+        return false;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        int counter = 0;
         for (Object o : c) {
             if (remove(o)) {
-                counter++;
+                return true;
             }
         }
-        return counter > 0;
+        return false;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        int counter = 0;
         for (Object o : c) {
             if (!contains(o)) {
                 remove(o);
-                counter++;
+                return true;
             }
         }
-        return counter > 0;
+        return false;
     }
 
     @Override
@@ -185,7 +178,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public int lastIndexOf(Object o) {
-        for (int i = size(); i >= 0; i--) {
+        for (int i = size()-1; i >= 0; i--) {
             if (o.equals(arr[i])) {
                 return i;
             }
