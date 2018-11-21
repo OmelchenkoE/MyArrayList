@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class SimpleListImpl implements SimpleList {
+
     private final int MIN_ARRAY_SIZE = 16;
     private Object[] arr = new Object[MIN_ARRAY_SIZE];
     private int pointer = 0;
-    private boolean b=false;
 
     @Override
     public Object get(int index) {
@@ -105,7 +105,6 @@ public class SimpleListImpl implements SimpleList {
         return false;
     }
 
-
     @Override
     public void clear() {
         arr = new Object[MIN_ARRAY_SIZE];
@@ -141,19 +140,21 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean addAll(Collection<?> c) {
+        boolean b = false;
         for (Object o : c) {
-           if(add(o)){
-               b=true;
-           }
+            if (add(o)) {
+                b = true;
+            }
         }
         return b;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
+        boolean b = false;
         for (Object o : c) {
             if (remove(o)) {
-                b=true;
+                b = true;
             }
         }
         return b;
@@ -161,10 +162,11 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean retainAll(Collection<?> c) {
+        boolean b = false;
         for (Object o : c) {
             if (!contains(o)) {
                 remove(o);
-                b=true;
+                b = true;
             }
         }
         return b;
