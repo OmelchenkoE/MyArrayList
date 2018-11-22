@@ -32,8 +32,7 @@ public class SimpleListImpl implements SimpleList {
     public void add(int index, Object element) {
         if (index > listSize && index < 0) {
             throw new IndexOutOfBoundsException();
-        } else {
-            // TODO else clause is redundant
+        }
             Object[] temp = arr;
             if (listSize == arr.length) {
                 arr = new Object[temp.length + MIN_ARRAY_SIZE];
@@ -42,22 +41,17 @@ public class SimpleListImpl implements SimpleList {
                 System.arraycopy(temp, index, arr, index + 1, listSize);
                 arr[index] = element;
             listSize++;
-        }
     }
 
     @Override
     public Object remove(int index) {
         if (index <= size() && index >= 0) {
             Object previousEl = arr[index];
-            // TODO the implementation is wrong
-            // for each remove call - If arr is not ready to be shrinked,
-            // but you're still calling System.arraycopy(..) operation twice
-            // you just need to copy elements AFTER the index in such case
             Object[] temp = arr;
             if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
                 arr = new Object[arr.length - MIN_ARRAY_SIZE];
+                System.arraycopy(temp, 0, arr, 0, index);
             }
-            System.arraycopy(temp, 0, arr, 0, index);
             int afterI = temp.length - index - 1;
             System.arraycopy(temp, index + 1, arr, index, afterI);
             listSize--;
@@ -75,7 +69,6 @@ public class SimpleListImpl implements SimpleList {
     @Override
     public boolean isEmpty() {
         return (listSize == 0);
-        // TODO empty line - formatting
     }
 
     @Override
@@ -94,15 +87,11 @@ public class SimpleListImpl implements SimpleList {
     public boolean remove(Object o) {
         for (int i = 0; i < listSize; i++) {
             if (o.equals(arr[i])) {
-                // TODO the implementation is wrong
-                // for each remove call - If arr is not ready to be shrinked,
-                // but you're still calling System.arraycopy(..) operation twice
-                // you just need to copy elements AFTER the removed element in such case
                 Object[] temp = arr;
                 if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
                     arr = new Object[arr.length - MIN_ARRAY_SIZE];
+                    System.arraycopy(temp, 0, arr, 0, i);
                 }
-                System.arraycopy(temp, 0, arr, 0, i);
                 int afterI = temp.length - i - 1;
                 System.arraycopy(temp, i + 1, arr, i, afterI);
                 listSize--;
