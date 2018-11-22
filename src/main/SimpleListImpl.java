@@ -72,6 +72,8 @@ public class SimpleListImpl implements SimpleList {
             pointer--;
             return previousEl;
         } else {
+            // TODO else is redundant here
+            // please also refactor - throw exception in the beginning if index is incorrect
             throw new IndexOutOfBoundsException();
         }
     }
@@ -83,6 +85,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean isEmpty() {
+        // TODO remove parenthesis
         return (pointer == 0);
         // TODO empty line - formatting
     }
