@@ -41,6 +41,7 @@ public class SimpleListImpl implements SimpleList {
         if (index > arr.length && index < 0) {
             throw new IndexOutOfBoundsException();
         } else {
+            // TODO else clause is redundant
             Object[] temp = arr;
             if (pointer == arr.length) {
                 arr = new Object[temp.length + MIN_ARRAY_SIZE];
