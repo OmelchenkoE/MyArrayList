@@ -56,9 +56,8 @@ public class SimpleListImpl implements SimpleList {
             System.arraycopy(temp, index + 1, arr, index, afterI);
             listSize--;
             return previousEl;
-        } else {
-            throw new IndexOutOfBoundsException();
         }
+            throw new IndexOutOfBoundsException();
     }
 
     @Override
