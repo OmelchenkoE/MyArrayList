@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-
 public class SimpleListImplTest {
+
     SimpleListImpl target = new SimpleListImpl();
     Object o = new Object();
 
@@ -104,11 +104,18 @@ public class SimpleListImplTest {
 
     @Test
     public void testRetainAll() {
+        int p = 564;
+        int g = 400;
+        for (int i = 0; i < p; i++) {
+            target.add(i);
+        }
+        assertEquals(p, target.size());
         ArrayList list = new ArrayList();
-        list.add(o);
-        list.add(1);
-        target.add(o);
+        for (int i = 0; i < g; i++) {
+            list.add(i);
+        }
         assertTrue(target.retainAll(list));
+        assertEquals(g, target.size());
     }
 
     @Test
