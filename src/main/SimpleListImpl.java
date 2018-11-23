@@ -122,13 +122,12 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        boolean contain = true;
         for (Object o : c) {
             if (!contains(o)) {
-                contain = false;
+                return false;
             }
         }
-        return contain;
+        return true;
     }
 
     @Override
@@ -154,7 +153,7 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
-       public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(Collection<?> c) {
         int j = 0;
         boolean wasChanged = false;
         Object[] temp = new Object[arr.length];
