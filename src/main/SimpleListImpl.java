@@ -135,6 +135,8 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
+    // TODO please optimize this method (simple observation)
+    // hint: what does it mean for this method when contains(o) returns false ?
     public boolean containsAll(Collection<?> c) {
         int counter = 0;
         for (Object o : c) {
@@ -168,6 +170,8 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
+    // TODO this whole method does not work
+    // Please find bugs via JUnits and fix them
     public boolean retainAll(Collection<?> c) {
         boolean wasChanged = false;
         for (Object o : c) {
