@@ -10,6 +10,7 @@ public class SimpleListImpl implements SimpleList {
     private int listSize = 0;
 
     @Override
+    // TODO formatting
     public Object get(int index) {
           if (index < listSize && index >= 0) {
             return arr[index];}
@@ -18,6 +19,8 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
+    // TODO there is a bug in this method - can you spot it?
+    // TODO formatting
     public Object set(int index, Object element) {
         if (index >= listSize && index < 0) {
             throw new IndexOutOfBoundsException();
@@ -29,6 +32,11 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
+    // TODO there is a bug in this method - can you spot it?
+    // TODO implementation issue - what happens when you add
+    // an element and no need to resize an array?
+    // For this case - you're copying first part of the array onto itself - please fix this
+    // TODO formatting
     public void add(int index, Object element) {
         if (index > listSize && index < 0) {
             throw new IndexOutOfBoundsException();
@@ -44,6 +52,8 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
+    // TODO another bug - check condition in 'if'
+    // TODO formatting
     public Object remove(int index) {
         if (index <= size() && index >= 0) {
             Object previousEl = arr[index];
@@ -66,6 +76,7 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
+    // TODO remove parenthesis
     public boolean isEmpty() {
         return (listSize == 0);
     }
@@ -87,6 +98,8 @@ public class SimpleListImpl implements SimpleList {
         for (int i = 0; i < listSize; i++) {
             if (o.equals(arr[i])) {
                 Object[] temp = arr;
+                // TODO: This code part is a duplicate - see remove method
+                // Please refactor it to a separate method
                 if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
                     arr = new Object[arr.length - MIN_ARRAY_SIZE];
                     System.arraycopy(temp, 0, arr, 0, i);
