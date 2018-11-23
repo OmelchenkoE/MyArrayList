@@ -157,9 +157,9 @@ public class SimpleListImpl implements SimpleList {
         int j = 0;
         boolean wasChanged = false;
         Object[] temp = new Object[arr.length];
-        for (int i = 0; i < size(); i++) {
-            if (c.contains(arr[i])) {
-                temp[j++] = arr[i];
+        for (Object o:c) {
+            if (contains(o)) {
+                temp[j++] = o;
                 wasChanged = true;
             }
         }
