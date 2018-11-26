@@ -29,6 +29,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public void add(int index, Object element) {
+        // TODO: Bug in condition - can you see it?
         if (index > listSize || index < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -37,6 +38,11 @@ public class SimpleListImpl implements SimpleList {
             arr = new Object[temp.length + MIN_ARRAY_SIZE];
             System.arraycopy(temp, 0, arr, 0, index);
         }
+        // TODO: There is a bug in parameters of System.arraycopy(..) method.
+        // Please carefully read it's documentation
+        // Please run tests with following logic:
+        // Perform list.add(..); 10 times with indexes 0..9
+        // Then try doing list.add(9, 'a')
         System.arraycopy(temp, index, arr, index + 1, listSize);
         arr[index] = element;
         listSize++;
@@ -44,6 +50,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public Object remove(int index) {
+        // TODO: Style: please decide if you use size() or listSize and stick to one variant in all methods
         if (index < size() && index >= 0) {
             Object previousEl = arr[index];
             Object[] temp = arr;
@@ -153,6 +160,13 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
+    // TODO: There is a serious bug in this method
+    // Consider case when:
+    // myArrayList = [1,2,3,4]
+    // c = [4,3,2,1]
+    // This method should basically leave myArrayList intact
+    // Please create JUnits and see what happens
+    // Implementation idea is kind of OK
     public boolean retainAll(Collection<?> c) {
         int j = 0;
         boolean wasChanged = false;
