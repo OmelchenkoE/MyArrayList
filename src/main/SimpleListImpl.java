@@ -29,7 +29,8 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public void add(int index, Object element) {
-        // TODO: Bug in condition - can you see it?
+        // You're right, the docs say that:
+        // IndexOutOfBoundsException - if the index is out of range (index < 0 || index > size())
         if (index > listSize || index < 0) {
             throw new IndexOutOfBoundsException();
         }
