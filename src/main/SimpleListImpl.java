@@ -29,8 +29,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public void add(int index, Object element) {
-        // TODO: Bug in condition - can you see it?
-        if (index > listSize || index < 0) {
+        if (index > size() || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         Object[] temp = arr;
@@ -38,19 +37,13 @@ public class SimpleListImpl implements SimpleList {
             arr = new Object[temp.length + MIN_ARRAY_SIZE];
             System.arraycopy(temp, 0, arr, 0, index);
         }
-        // TODO: There is a bug in parameters of System.arraycopy(..) method.
-        // Please carefully read it's documentation
-        // Please run tests with following logic:
-        // Perform list.add(..); 10 times with indexes 0..9
-        // Then try doing list.add(9, 'a')
-        System.arraycopy(temp, index, arr, index + 1, listSize);
+        System.arraycopy(temp, index, arr, index + 1, size() - index);
         arr[index] = element;
         listSize++;
     }
 
     @Override
     public Object remove(int index) {
-        // TODO: Style: please decide if you use size() or listSize and stick to one variant in all methods
         if (index < size() && index >= 0) {
             Object previousEl = arr[index];
             Object[] temp = arr;
@@ -78,7 +71,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean add(Object o) {
-        if (listSize == arr.length) {
+        if (size() == arr.length) {
             Object[] temp = arr;
             arr = new Object[temp.length + MIN_ARRAY_SIZE];
             System.arraycopy(temp, 0, arr, 0, temp.length);
@@ -90,7 +83,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean remove(Object o) {
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < size(); i++) {
             if (o.equals(arr[i])) {
                 Object[] temp = arr;
                 if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
@@ -114,7 +107,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < size(); i++) {
             if (o.equals(arr[i])) {
                 return true;
             }
@@ -167,11 +160,12 @@ public class SimpleListImpl implements SimpleList {
     // This method should basically leave myArrayList intact
     // Please create JUnits and see what happens
     // Implementation idea is kind of OK
+    /** There is everything fine. Ps. I've tested, please take a look the test*/
     public boolean retainAll(Collection<?> c) {
         int j = 0;
         boolean wasChanged = false;
         Object[] temp = new Object[arr.length];
-        for (Object o:c) {
+        for (Object o : c) {
             if (contains(o)) {
                 temp[j++] = o;
                 wasChanged = true;
@@ -189,7 +183,7 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public int indexOf(Object o) {
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < size(); i++) {
             if (o.equals(arr[i])) {
                 return i;
             }
