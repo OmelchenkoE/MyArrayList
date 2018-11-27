@@ -29,11 +29,11 @@ public class SimpleListImplTest {
 
     @Test
     public void testAddAndGetWithIndex() {
-        for (int i = 0; i <88; i++) {
-            target.add(i,"b" +i);
+        for (int i = 0; i < 88; i++) {
+            target.add(i, "b" + i);
             System.out.println(i);
         }
-        assertEquals("b55",target.get(55));
+        assertEquals("b55", target.get(55));
     }
 
     @Test
@@ -119,15 +119,19 @@ public class SimpleListImplTest {
         }
         assertTrue(target.retainAll(list));
         assertEquals(g, target.size());
-        SimpleListImpl target = new SimpleListImpl();
-        for (int i = 1; i <5; i++) {
+        target.clear();
+        for (int i = 1; i < 5; i++) {
             target.add(i);
         }
         ArrayList list1 = new ArrayList();
-        for (int i = 4; i >0 ; i--) {
+        for (int i = 4; i > 0; i--) {
             list1.add(i);
         }
         assertTrue(target.retainAll(list1));
+        for (int i = 1; i < 5; i++) {
+            target.add(i);
+            assertFalse(target.get(i) == list1);
+        }
     }
 
     @Test

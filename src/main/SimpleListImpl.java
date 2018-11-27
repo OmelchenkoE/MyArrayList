@@ -33,7 +33,7 @@ public class SimpleListImpl implements SimpleList {
             throw new IndexOutOfBoundsException();
         }
         Object[] temp = arr;
-        if (listSize == arr.length) {
+        if (size() == arr.length) {
             arr = new Object[temp.length + MIN_ARRAY_SIZE];
             System.arraycopy(temp, 0, arr, 0, index);
         }
@@ -76,10 +76,11 @@ public class SimpleListImpl implements SimpleList {
             arr = new Object[temp.length + MIN_ARRAY_SIZE];
             System.arraycopy(temp, 0, arr, 0, temp.length);
         }
-        arr[listSize] = o;
+        arr[size()] = o;
         listSize++;
         return true;
     }
+
 
     @Override
     public boolean remove(Object o) {
@@ -153,21 +154,13 @@ public class SimpleListImpl implements SimpleList {
     }
 
     @Override
-    // TODO: There is a serious bug in this method
-    // Consider case when:
-    // myArrayList = [1,2,3,4]
-    // c = [4,3,2,1]
-    // This method should basically leave myArrayList intact
-    // Please create JUnits and see what happens
-    // Implementation idea is kind of OK
-    /** There is everything fine. Ps. I've tested, please take a look the test*/
     public boolean retainAll(Collection<?> c) {
         int j = 0;
         boolean wasChanged = false;
         Object[] temp = new Object[arr.length];
-        for (Object o : c) {
-            if (contains(o)) {
-                temp[j++] = o;
+        for (int i = 0; i < size(); i++) {
+            if (c.contains(arr[i])) {
+                temp[j++] = arr[i];
                 wasChanged = true;
             }
         }
