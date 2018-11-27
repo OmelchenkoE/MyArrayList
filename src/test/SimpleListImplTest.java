@@ -31,7 +31,6 @@ public class SimpleListImplTest {
     public void testAddAndGetWithIndex() {
         for (int i = 0; i < 88; i++) {
             target.add(i, "b" + i);
-            System.out.println(i);
         }
         assertEquals("b55", target.get(55));
     }
@@ -127,10 +126,9 @@ public class SimpleListImplTest {
         for (int i = 4; i > 0; i--) {
             list1.add(i);
         }
-        assertTrue(target.retainAll(list1));
-        for (int i = 1; i < 5; i++) {
-            target.add(i);
-            assertFalse(target.get(i) == list1);
+        assertFalse(target.retainAll(list1));
+        for (int i = 0; i < 4; i++) {
+            assertFalse(target.get(i) == list1.get(i));
         }
     }
 
