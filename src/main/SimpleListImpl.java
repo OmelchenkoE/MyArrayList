@@ -163,8 +163,9 @@ public class SimpleListImpl implements SimpleList {
                 temp[j++] = arr[i];
             }
         }
-        if(j!=size())
-        {wasChanged = true;}
+        if (j != size()) {
+            wasChanged = true;
+        }
         listSize = j;
         if (size() < arr.length - MIN_ARRAY_SIZE) {
             arr = new Object[(size() / MIN_ARRAY_SIZE + 1) * MIN_ARRAY_SIZE];
@@ -192,12 +193,4 @@ public class SimpleListImpl implements SimpleList {
         }
         return -1;
     }
-
-    private boolean ensureCapacity(int capacity) {
-        if (capacity == size()) {
-            arr = new Object[arr.length + MIN_ARRAY_SIZE];
-        }
-        if (capacity < arr.length - MIN_ARRAY_SIZE) {
-            arr = new Object[(size() / MIN_ARRAY_SIZE + 1) * MIN_ARRAY_SIZE];
-        } return false;
-}}
+}
