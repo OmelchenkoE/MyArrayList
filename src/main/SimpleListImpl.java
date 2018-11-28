@@ -33,8 +33,7 @@ public class SimpleListImpl implements SimpleList {
             throw new IndexOutOfBoundsException();
         }
         Object[] temp = arr;
-        if (size() == arr.length) {
-            arr = new Object[temp.length + MIN_ARRAY_SIZE];
+        if (ensureCapacity(size())) {
             System.arraycopy(temp, 0, arr, 0, index);
         }
         System.arraycopy(temp, index, arr, index + 1, size() - index);
@@ -47,13 +46,10 @@ public class SimpleListImpl implements SimpleList {
         if (index < size() && index >= 0) {
             Object previousEl = arr[index];
             Object[] temp = arr;
-            if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
-                arr = new Object[arr.length - MIN_ARRAY_SIZE];
-                System.arraycopy(temp, 0, arr, 0, index);
-            }
             int afterI = temp.length - index - 1;
             System.arraycopy(temp, index + 1, arr, index, afterI);
             listSize--;
+            ensureCapacity(size());
             return previousEl;
         }
         throw new IndexOutOfBoundsException();
@@ -71,9 +67,8 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean add(Object o) {
-        if (size() == arr.length) {
-            Object[] temp = arr;
-            arr = new Object[temp.length + MIN_ARRAY_SIZE];
+        Object[] temp = arr;
+        if (ensureCapacity(size())) {
             System.arraycopy(temp, 0, arr, 0, temp.length);
         }
         arr[size()] = o;
@@ -87,13 +82,10 @@ public class SimpleListImpl implements SimpleList {
         for (int i = 0; i < size(); i++) {
             if (o.equals(arr[i])) {
                 Object[] temp = arr;
-                if (size() <= (arr.length - MIN_ARRAY_SIZE)) {
-                    arr = new Object[arr.length - MIN_ARRAY_SIZE];
-                    System.arraycopy(temp, 0, arr, 0, i);
-                }
                 int afterI = temp.length - i - 1;
                 System.arraycopy(temp, i + 1, arr, i, afterI);
                 listSize--;
+                ensureCapacity(size());
                 return true;
             }
         }
@@ -167,8 +159,7 @@ public class SimpleListImpl implements SimpleList {
             wasChanged = true;
         }
         listSize = j;
-        if (size() < arr.length - MIN_ARRAY_SIZE) {
-            arr = new Object[(size() / MIN_ARRAY_SIZE + 1) * MIN_ARRAY_SIZE];
+        if (ensureCapacity(size())) {
             System.arraycopy(temp, 0, arr, 0, size());
         }
         return wasChanged;
@@ -192,5 +183,17 @@ public class SimpleListImpl implements SimpleList {
             }
         }
         return -1;
+    }
+
+    private boolean ensureCapacity(int capacity) {
+        if (capacity == arr.length) {
+            arr = new Object[arr.length + MIN_ARRAY_SIZE];
+            return true;
+        }
+        if (capacity < arr.length - MIN_ARRAY_SIZE) {
+            arr = new Object[(size() / MIN_ARRAY_SIZE + 1) * MIN_ARRAY_SIZE];
+            return true;
+        }
+        return false;
     }
 }

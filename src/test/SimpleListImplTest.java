@@ -42,6 +42,15 @@ public class SimpleListImplTest {
         target.remove(0);
         target.remove("1");
         assertTrue(target.isEmpty());
+        for (int i = 0; i < 8; i++) {
+            target.add(o);
+            target.add("1");
+        }
+        target.add("1");
+        assertEquals(17,target.size());
+        target.remove(0);
+        target.remove("1");
+        assertEquals(15,target.size());
     }
 
     @Test
