@@ -81,7 +81,6 @@ public class SimpleListImplTest {
     public void testContains() {
         target.add(o);
         assertTrue(target.contains(o));
-
     }
 
     @Test
@@ -111,7 +110,6 @@ public class SimpleListImplTest {
         ArrayList list = new ArrayList();
         list.add(o);
         assertTrue(target.removeAll(list));
-
     }
 
     @Test
