@@ -44,10 +44,10 @@ public class SimpleListImpl implements SimpleList {
         if (index < size() && index >= 0) {
             Object previousEl = arr[index];
             Object[] temp = arr;
-            ensureCapacity();
-            int afterI = temp.length - index - 1;
-            System.arraycopy(temp, index + 1, arr, index, afterI);
             listSize--;
+            ensureCapacity();
+            int afterI = arr.length - index - 1;
+            System.arraycopy(temp, index + 1, arr, index, afterI-1);
             // TODO: bug here - what if ensureCapacity shrinks your array?
             return previousEl;
         }
@@ -79,10 +79,10 @@ public class SimpleListImpl implements SimpleList {
         for (int i = 0; i < size(); i++) {
             if (o.equals(arr[i])) {
                 Object[] temp = arr;
-                ensureCapacity();
-                int afterI = temp.length - i - 1;
-                System.arraycopy(temp, i + 1, arr, i, afterI);
                 listSize--;
+                ensureCapacity();
+                int afterI = arr.length - i - 1;
+                System.arraycopy(temp, i + 1, arr, i, afterI);
                 // TODO there is a bug here - what if ensureCapacity shrinks your array?
                 return true;
             }
