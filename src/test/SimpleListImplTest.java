@@ -21,10 +21,11 @@ public class SimpleListImplTest {
 
     @Test
     public void testAddAndGet() {
-        for (int i = 0; i < 17; i++) {
-            target.add(o);
+        for (int i = 0; i < 16; i++) {
+            target.add(i);
         }
-        assertEquals(o, target.get(0));
+        target.add(o);
+        assertEquals(o, target.get(16));
     }
 
     @Test

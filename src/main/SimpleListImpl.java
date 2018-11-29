@@ -66,7 +66,6 @@ public class SimpleListImpl implements SimpleList {
 
     @Override
     public boolean add(Object o) {
-        Object[] temp = arr;
         ensureCapacity();
         arr[size()] = o;
         listSize++;
