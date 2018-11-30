@@ -76,6 +76,8 @@ public class SimpleListImpl implements SimpleList {
     public boolean remove(Object o) {
         for (int i = 0; i < size(); i++) {
             if (o.equals(arr[i])) {
+                // TODO why can't you you see similarities of following code with code inside remove(int index) ?
+                // Please refactor
                 Object[] temp = arr;
                 listSize--;
                 ensureCapacity();
@@ -140,6 +142,8 @@ public class SimpleListImpl implements SimpleList {
         return wasChanged;
     }
 
+    // TODO: bug: after introducing ensureCapacity - this method stopped working
+    // Please fix
     @Override
     public boolean retainAll(Collection<?> c) {
         int j = 0;
