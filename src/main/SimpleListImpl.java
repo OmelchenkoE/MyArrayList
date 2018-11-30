@@ -152,8 +152,8 @@ public class SimpleListImpl implements SimpleList {
             wasChanged = true;
         }
         listSize = j;
-        ensureCapacity();
         arr = temp;
+        ensureCapacity();
         return wasChanged;
     }
 
@@ -184,8 +184,8 @@ public class SimpleListImpl implements SimpleList {
             System.arraycopy(anotherTemp, 0, arr, 0, anotherTemp.length);
         }
         if (size() < arr.length - MIN_ARRAY_SIZE) {
-            System.arraycopy(anotherTemp, 0, arr, 0, anotherTemp.length);
             arr = new Object[(size() / MIN_ARRAY_SIZE + 1) * MIN_ARRAY_SIZE];
+            System.arraycopy(anotherTemp, 0, arr, 0, arr.length);
         }
     }
 }
