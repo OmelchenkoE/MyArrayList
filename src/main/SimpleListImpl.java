@@ -47,7 +47,7 @@ public class SimpleListImpl implements SimpleList {
             listSize--;
             ensureCapacity();
             int afterI = arr.length - index - 1;
-            System.arraycopy(temp, index + 1, arr, index, afterI - 1);
+            System.arraycopy(temp, index + 1, arr, index, afterI);
             return previousEl;
         }
         throw new IndexOutOfBoundsException();
@@ -76,13 +76,7 @@ public class SimpleListImpl implements SimpleList {
     public boolean remove(Object o) {
         for (int i = 0; i < size(); i++) {
             if (o.equals(arr[i])) {
-                // TODO why can't you you see similarities of following code with code inside remove(int index) ?
-                // Please refactor
-                Object[] temp = arr;
-                listSize--;
-                ensureCapacity();
-                int afterI = arr.length - i - 1;
-                System.arraycopy(temp, i + 1, arr, i, afterI);
+                remove(i);
                 return true;
             }
         }

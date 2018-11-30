@@ -47,10 +47,10 @@ public class SimpleListImplTest {
             target.add(o);
             target.add("1");
         }
-        target.add("1");
+        target.add("last");
         assertEquals(17,target.size());
-        target.remove(0);
         target.remove("1");
+        target.remove(0);
         assertEquals(15,target.size());
     }
 
