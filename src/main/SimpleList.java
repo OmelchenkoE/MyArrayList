@@ -17,39 +17,26 @@ public interface SimpleList extends List<Object> {
     boolean remove(Object o);
     void clear();
     boolean contains(Object o);
+    Object[] toArray();
+    boolean containsAll(Collection<?> c);
+    boolean addAll(Collection<?> c);
+    boolean removeAll(Collection<?> c);
+    boolean retainAll(Collection<?> c);
+    int indexOf(Object o);
+    int lastIndexOf(Object o);
 
     //////////
     default Iterator<Object> iterator() {
         throw new UnsupportedOperationException("Not Implemented");
     };
 
-    default Object[] toArray() {
-        throw new UnsupportedOperationException("Not Implemented");
-    };
-
     default <T> T[] toArray(T[] a) {
         throw new UnsupportedOperationException("Not Implemented");
-    };
-
-    default boolean containsAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Not Implemented");
-    };
-
-    default boolean addAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Not Implemented");
-    };
+    };    
 
     default boolean addAll(int index, Collection<?> c) {
         throw new UnsupportedOperationException("Not Implemented");
-    };
-
-    default boolean removeAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Not Implemented");
-    };
-
-    default boolean retainAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Not Implemented");
-    };
+    };    
 
     default void replaceAll(UnaryOperator<Object> operator) {
         throw new UnsupportedOperationException("Not Implemented");
@@ -57,15 +44,7 @@ public interface SimpleList extends List<Object> {
 
     default void sort(Comparator<? super Object> c) {
         throw new UnsupportedOperationException("Not Implemented");
-    }
-
-    default int indexOf(Object o) {
-        throw new UnsupportedOperationException("Not Implemented");
-    };
-
-    default int lastIndexOf(Object o) {
-        throw new UnsupportedOperationException("Not Implemented");
-    };
+    }    
 
     default ListIterator<Object> listIterator() {
         throw new UnsupportedOperationException("Not Implemented");
