@@ -119,13 +119,15 @@ public class SimpleListImplTest {
         for (int i = 0; i < p; i++) {
             target.add(i);
         }
-        assertEquals(p, target.size());
+        target.add(o);
+        assertEquals(p+1, target.size());
         ArrayList list = new ArrayList();
         for (int i = 0; i < g; i++) {
             list.add(i);
         }
+        list.add(o);
         assertTrue(target.retainAll(list));
-        assertEquals(g, target.size());
+        assertEquals(g+1, target.size());
         target.clear();
         for (int i = 1; i < 5; i++) {
             target.add(i);

@@ -159,6 +159,7 @@ public class SimpleListImpl implements SimpleList {
         }
         listSize = j;
         ensureCapacity();
+        arr = temp;
         return wasChanged;
     }
 
