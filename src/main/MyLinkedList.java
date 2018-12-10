@@ -41,15 +41,6 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public boolean add(Object o) {
-       Node node = new Node();
-       node.currentEl = o;
-       if (head==null){
-           head=node;
-       }else {
-
-       }
-        return true;
-    }
 
     @Override
     public boolean remove(Object o) {
