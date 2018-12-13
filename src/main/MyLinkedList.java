@@ -2,21 +2,33 @@ package main;
 
 import java.util.Collection;
 
- class Node {
-     Object currentEl;
-     Object nextEl;
+class Node {
+    Node(Object currentEl) {
+        this.currentEl = currentEl;
+        this.nextEl = nextEl;
+    }
+
+    Object currentEl;
+    Node nextEl;
 }
+
 public class MyLinkedList implements SimpleList {
-    Node head;
+    Node first;
+    Node last;
+    private int count = 0;
 
     @Override
     public Object get(int index) {
-        return null;
+            Node node = first;
+            for (int i = 0; i < index; i++) {
+                node = node.nextEl;
+            }
+            return node.currentEl;
     }
 
     @Override
     public Object set(int index, Object element) {
-   return null;
+        return null;
     }
 
     @Override
@@ -31,16 +43,27 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public int size() {
-        return 0;
+        return count;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return first == null &&last==null;
     }
 
     @Override
     public boolean add(Object o) {
+        Node node = new Node(o);
+        if (first == null) {
+            first = node;
+            last = node;
+        } else {
+            last.nextEl = node;
+            last = node;
+        }
+        count++;
+        return true;
+    }
 
     @Override
     public boolean remove(Object o) {
@@ -49,7 +72,8 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public void clear() {
-
+        first = null;
+        last = null;
     }
 
     @Override

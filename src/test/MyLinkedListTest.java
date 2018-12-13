@@ -28,33 +28,34 @@ public class MyLinkedListTest extends TestCase {
     }
 
     @Test
-    public void size() {
+    public void testSize() {
+        assertEquals(0,target.size());
+        target.add("q");
+        assertEquals(1,target.size());
+        target.add("w");
+        assertEquals(2,target.size());
     }
 
     @Test
-    public void isEmpty() {
+    public void testClearAndIsEmpty() {
+        target.clear();
+        assertTrue(target.isEmpty());
+        target.add("asd");
+        assertFalse(target.isEmpty());
     }
 
     @Test
-    public void add1() {
+    public void testAdd() {
     }
 
     @Test
-    public void remove1() {
+    public void testContains() {
     }
 
     @Test
-    public void clear() {
+    public void testToArray() {
     }
-
-    @Test
-    public void contains() {
-    }
-
-    @Test
-    public void toArray() {
-    }
-
+/////////////////
     @Test
     public void containsAll() {
     }
