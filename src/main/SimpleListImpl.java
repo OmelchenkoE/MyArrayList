@@ -136,8 +136,6 @@ public class SimpleListImpl implements SimpleList {
         return wasChanged;
     }
 
-    // TODO: bug: after introducing ensureCapacity - this method stopped working
-    // Please fix
     @Override
     public boolean retainAll(Collection<?> c) {
         int j = 0;

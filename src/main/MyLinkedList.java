@@ -19,11 +19,11 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public Object get(int index) {
-            Node node = first;
-            for (int i = 0; i < index; i++) {
-                node = node.nextEl;
-            }
-            return node.currentEl;
+        Node node = first;
+        for (int i = 0; i < index; i++) {
+            node = node.nextEl;
+        }
+        return node.currentEl;
     }
 
     @Override
@@ -38,7 +38,20 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public Object remove(int index) {
-        return null;
+        count--;
+        Object o;
+        Node node = first;
+        for (int i = 0; i < index - 1; i++) {
+            node = node.nextEl;
+        }
+        if (index == 0) {
+            o = node.currentEl;
+            first = node.nextEl;
+        } else {
+            o = node.nextEl.currentEl;
+            node.nextEl = node.nextEl.nextEl;
+        }
+        return o;
     }
 
     @Override
@@ -48,7 +61,7 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public boolean isEmpty() {
-        return first == null &&last==null;
+        return first == null && last == null;
     }
 
     @Override
