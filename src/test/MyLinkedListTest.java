@@ -69,7 +69,25 @@ public class MyLinkedListTest extends TestCase {
     }
 
     @Test
-    public void testAdd() {
+    public void testAddWithIndex() {
+        String s = "new";
+        for (int i = 0; i < 10; i++) {
+            target.add("old"+i);
+        }
+        assertEquals(10,target.size());
+        target.add(0,s);
+        assertEquals(s,target.get(0));
+        for (int i = 0; i < target.size(); i++) {
+            System.out.println(target.get(i));
+        }
+        assertEquals(11,target.size());
+        target.add(5,"new5");
+
+        assertEquals(12,target.size());
+        System.out.println();
+        for (int i = 0; i < target.size(); i++) {
+            System.out.println(target.get(i));
+        }
     }
 
     @Test

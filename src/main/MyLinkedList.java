@@ -28,13 +28,48 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public Object set(int index, Object element) {
+        if (index > size() && index < 0) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            Node node = first;
+            if (index == 0) {
+                node = new Node(element);
+                node.nextEl = first;
+                first = node;
+            }
+            for (int i = 0; i < index; i++) {
+                node = node.nextEl;
+            }
+            // node = node.nextEl;
+            node.currentEl = element;
+
+            count++;
+        }
         return null;
     }
 
     @Override
     public void add(int index, Object element) {
+        count++;
+        Node node = first;
+        if (index == 0) {
+            node = new Node(element);
+            node.nextEl = first;
+            first = node;
+        }else {
+            Node node1 = new Node(element);
+            for (int i = 0; i < index; i++) {
+                node = node.nextEl;
+            }
+            node1.nextEl=node.nextEl;
+            node.nextEl = node1;
+
+
+        }
+
 
     }
+
 
     @Override
     public Object remove(int index) {
