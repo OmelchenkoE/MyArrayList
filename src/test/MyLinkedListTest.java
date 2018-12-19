@@ -25,12 +25,12 @@ public class MyLinkedListTest extends TestCase {
             target.add("" + i);
         }
         assertEquals(mySize, target.size());
-        target.set(5,5);
-        assertEquals(5,target.get(5));
-        target.set(0,0);
-        assertEquals(0,target.get(0));
-        target.set(target.size()-1, "TheLast");
-        assertEquals("TheLast", target.get(target.size()-1));
+        target.set(5, 5);
+        assertEquals(5, target.get(5));
+        target.set(0, 0);
+        assertEquals(0, target.get(0));
+        target.set(target.size() - 1, "TheLast");
+        assertEquals("TheLast", target.get(target.size() - 1));
     }
 
     private Object remove(int index) {
@@ -43,21 +43,14 @@ public class MyLinkedListTest extends TestCase {
         for (int i = 0; i < mySize; i++) {
             target.add("" + i);
         }
-        for (int i = 0; i < target.size(); i++) {
-            System.out.println(target.get(i));
-        }
-        System.out.println();
         assertEquals(mySize, target.size());
         assertEquals("" + 3, remove(3));
         assertEquals("" + 33, remove(32));
         assertEquals("" + 13, remove(12));
         assertEquals("" + 17, remove(15));
         assertEquals("" + 18, remove(15));
-        assertEquals("" +0,remove(0));
-        assertEquals("" +49,remove(43));
-        for (int i = 0; i < target.size(); i++) {
-            System.out.println(target.get(i));
-        }
+        assertEquals("" + 0, remove(0));
+        assertEquals("" + 49, remove(43));
         assertEquals(mySize, target.size());
     }
 
@@ -82,22 +75,16 @@ public class MyLinkedListTest extends TestCase {
     public void testAddWithIndex() {
         String s = "new";
         for (int i = 0; i < 10; i++) {
-            target.add("old"+i);
+            target.add("old" + i);
         }
-        assertEquals(10,target.size());
-        target.add(0,s);
-        assertEquals(s,target.get(0));
-        for (int i = 0; i < target.size(); i++) {
-            System.out.println(target.get(i));
-        }
-        assertEquals(11,target.size());
-        target.add(5,"new5");
-
-        assertEquals(12,target.size());
+        assertEquals(10, target.size());
+        target.add(0, s);
+        assertEquals(s, target.get(0));
+        assertEquals(11, target.size());
+        target.add(5, "new5");
+        assertEquals(12, target.size());
         System.out.println();
-        for (int i = 0; i < target.size(); i++) {
-            System.out.println(target.get(i));
-        }
+
     }
 
     @Test
@@ -107,14 +94,21 @@ public class MyLinkedListTest extends TestCase {
         }
         assertFalse(target.contains("rtyui"));
         assertTrue(target.contains("3"));
-
     }
 
     @Test
     public void testToArray() {
+        String s = "asd";
+        for (int i = 0; i < mySize; i++) {
+            target.add(s + i);
+        }
+        Object[] arr = target.toArray();
+        for (int i = 0; i < target.size(); i++) {
+            assertEquals(arr[i], target.get(i));
+        }
     }
 
-    /////////////////
+    //till here
     @Test
     public void containsAll() {
     }

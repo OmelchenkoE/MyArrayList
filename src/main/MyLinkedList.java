@@ -64,7 +64,6 @@ public class MyLinkedList implements SimpleList {
         }
     }
 
-
     @Override
     public Object remove(int index) {
         count--;
@@ -109,6 +108,14 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public boolean remove(Object o) {
+        Node node = first;
+        for (int i = 0; i < size() - 1; i++) {
+            node = node.nextEl;
+            if (o.equals(node.currentEl)) {
+                remove(i);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -121,9 +128,9 @@ public class MyLinkedList implements SimpleList {
     @Override
     public boolean contains(Object o) {
         Node node = first;
-        for (int i = 0; i < size()-1; i++) {
+        for (int i = 0; i < size() - 1; i++) {
             node = node.nextEl;
-            if(node.currentEl.equals(o)){
+            if (node.currentEl.equals(o)) {
                 return true;
             }
         }
@@ -132,7 +139,14 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Node node = first;
+        Object[] arr = new Object[size()];
+        for (int i = 0; i < size(); i++) {
+            arr[i] = node.currentEl;
+            node = node.nextEl;
+
+        }
+        return arr;
     }
 
     @Override
