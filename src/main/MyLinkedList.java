@@ -34,18 +34,16 @@ public class MyLinkedList implements SimpleList {
             Node node = first;
             if (index == 0) {
                 node = new Node(element);
-                node.nextEl = first;
+                node.nextEl = first.nextEl;
                 first = node;
             }
             for (int i = 0; i < index; i++) {
                 node = node.nextEl;
             }
-            // node = node.nextEl;
+            Object o = node.currentEl;
             node.currentEl = element;
-
-            count++;
+            return o;
         }
-        return null;
     }
 
     @Override
@@ -56,18 +54,14 @@ public class MyLinkedList implements SimpleList {
             node = new Node(element);
             node.nextEl = first;
             first = node;
-        }else {
+        } else {
             Node node1 = new Node(element);
             for (int i = 0; i < index; i++) {
                 node = node.nextEl;
             }
-            node1.nextEl=node.nextEl;
+            node1.nextEl = node.nextEl;
             node.nextEl = node1;
-
-
         }
-
-
     }
 
 
@@ -126,6 +120,13 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public boolean contains(Object o) {
+        Node node = first;
+        for (int i = 0; i < size()-1; i++) {
+            node = node.nextEl;
+            if(node.currentEl.equals(o)){
+                return true;
+            }
+        }
         return false;
     }
 

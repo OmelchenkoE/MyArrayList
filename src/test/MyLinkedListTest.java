@@ -21,6 +21,16 @@ public class MyLinkedListTest extends TestCase {
 
     @Test
     public void testSet() {
+        for (int i = 0; i < mySize; i++) {
+            target.add("" + i);
+        }
+        assertEquals(mySize, target.size());
+        target.set(5,5);
+        assertEquals(5,target.get(5));
+        target.set(0,0);
+        assertEquals(0,target.get(0));
+        target.set(target.size()-1, "TheLast");
+        assertEquals("TheLast", target.get(target.size()-1));
     }
 
     private Object remove(int index) {
@@ -92,6 +102,12 @@ public class MyLinkedListTest extends TestCase {
 
     @Test
     public void testContains() {
+        for (int i = 0; i < mySize; i++) {
+            target.add("" + i);
+        }
+        assertFalse(target.contains("rtyui"));
+        assertTrue(target.contains("3"));
+
     }
 
     @Test
