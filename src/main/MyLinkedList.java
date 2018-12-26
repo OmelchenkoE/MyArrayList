@@ -2,16 +2,6 @@ package main;
 
 import java.util.Collection;
 
-class Node {
-    Node(Object currentEl) {
-        this.currentEl = currentEl;
-        this.nextEl = nextEl;
-    }
-
-    Object currentEl;
-    Node nextEl;
-}
-
 public class MyLinkedList implements SimpleList {
     Node first;
     Node last;
@@ -28,7 +18,7 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public Object set(int index, Object element) {
-        if (index > size() && index < 0) {
+        if (index >= size() && index < 0) {
             throw new IndexOutOfBoundsException();
         } else {
             Node node = first;
@@ -48,20 +38,29 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public void add(int index, Object element) {
-        count++;
         Node node = first;
-        if (index == 0) {
-            node = new Node(element);
-            node.nextEl = first;
-            first = node;
+        if (index == size()) {
+            add(element);
         } else {
-            Node node1 = new Node(element);
-            for (int i = 0; i < index; i++) {
-                node = node.nextEl;
+            if (index == 0) {
+                addForNullIndex(element);
+            } else {
+                Node node1 = new Node(element);
+                for (int i = 0; i < index; i++) {
+                    node = node.nextEl;
+                }
+                node1.nextEl = node.nextEl;
+                node.nextEl = node1;
+                count++;
             }
-            node1.nextEl = node.nextEl;
-            node.nextEl = node1;
         }
+    }
+
+    private void addForNullIndex(Object o) {
+        Node node = new Node(o);
+        node.nextEl = first;
+        first = node;
+        count++;
     }
 
     @Override

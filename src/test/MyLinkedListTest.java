@@ -74,6 +74,7 @@ public class MyLinkedListTest extends TestCase {
     @Test
     public void testAddWithIndex() {
         String s = "new";
+        String s12 = "new12";
         for (int i = 0; i < 10; i++) {
             target.add("old" + i);
         }
@@ -83,8 +84,9 @@ public class MyLinkedListTest extends TestCase {
         assertEquals(11, target.size());
         target.add(5, "new5");
         assertEquals(12, target.size());
-        System.out.println();
-
+        target.add(12, s12);
+        assertEquals(13, target.size());
+        assertEquals(s12, target.get(12));
     }
 
     @Test
