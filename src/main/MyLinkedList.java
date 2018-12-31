@@ -9,6 +9,9 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public Object get(int index) {
+        if (index >= size() && index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
         Node node = first;
         for (int i = 0; i < index; i++) {
             node = node.nextEl;
@@ -20,7 +23,7 @@ public class MyLinkedList implements SimpleList {
     public Object set(int index, Object element) {
         if (index >= size() && index < 0) {
             throw new IndexOutOfBoundsException();
-        } else {
+        }
             Node node = first;
             if (index == 0) {
                 node = new Node(element);
@@ -33,11 +36,13 @@ public class MyLinkedList implements SimpleList {
             Object o = node.currentEl;
             node.currentEl = element;
             return o;
-        }
     }
 
     @Override
     public void add(int index, Object element) {
+        if (index > size() && index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
         Node node = first;
         if (index == size()) {
             add(element);
@@ -65,6 +70,9 @@ public class MyLinkedList implements SimpleList {
 
     @Override
     public Object remove(int index) {
+        if (index >= size() && index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
         count--;
         Object o;
         Node node = first;

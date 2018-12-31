@@ -4,8 +4,6 @@ import junit.framework.TestCase;
 import main.MyLinkedList;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class MyLinkedListTest extends TestCase {
     MyLinkedList target = new MyLinkedList();
     int mySize = 50;
